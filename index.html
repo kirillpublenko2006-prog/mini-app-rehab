@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контроль реабилитации</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#2563eb;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --success:#16a34a;
+  --warning:#d97706;
+  --danger:#dc2626;
+}
+*{box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  margin:0;
+  padding:15px;
+  color:#1e293b;
+}
+.header{
+  text-align:center;
+  margin-bottom:20px;
+}
+.header h1{
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+}
+.card{
+  background:var(--card);
+  padding:18px;
+  margin-bottom:15px;
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+.card h3{
+  margin-top:0;
+  font-size:16px;
+  margin-bottom:10px;
+}
+.question{margin-bottom:12px;}
+label{display:block;margin:4px 0;font-size:14px;}
+select, button{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+  font-size:14px;
+}
+button{
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  border:none;
+  margin-top:15px;
+  transition:0.2s;
+}
+button:active{transform:scale(0.98);}
+.progress-container{
+  height:10px;
+  background:#e2e8f0;
+  border-radius:10px;
+  margin-top:10px;
+}
+.progress-bar{
+  height:10px;
+  border-radius:10px;
+  width:0%;
+  transition:0.5s;
+}
+.result{
+  font-size:15px;
+  margin-top:10px;
+  font-weight:600;
+}
+.success{color:var(--success)}
+.warning{color:var(--warning)}
+.danger{color:var(--danger)}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>📊 Контроль реабилитации</h1>
+</div>
+
+<form id="form">
+
+<div class="card">
+<h3>Двигательная функция</h3>
+
+<div class="question">
+Поднимаете руку?
+<label><input type="radio" name="q4" value="2"> Полностью</label>
+<label><input type="radio" name="q4" value="1"> Частично</label>
+<label><input type="radio" name="q4" value="0"> Не могу</label>
+</div>
+
+<div class="question">
+Встаёте со стула?
+<label><input type="radio" name="q5" value="2"> Самостоятельно</label>
+<label><input type="radio" name="q5" value="1"> С поддержкой</label>
+<label><input type="radio" name="q5" value="0"> Не могу</label>
+</div>
+
+<div class="question">
+Проходите 5 метров?
+<label><input type="radio" name="q6" value="2"> Самостоятельно</label>
+<label><input type="radio" name="q6" value="1"> С поддержкой</label>
+<label><input type="radio" name="q6" value="0"> Не могу</label>
+</div>
+</div>
+
+<div class="card">
+<h3>Самообслуживание</h3>
+<select name="q7">
+<option value="2">Ем самостоятельно</option>
+<option value="1">Частично</option>
+<option value="0">Не могу</option>
+</select>
+<br><br>
+<select name="q8">
+<option value="2">Одеваюсь самостоятельно</option>
+<option value="1">Частично</option>
+<option value="0">Не могу</option>
+</select>
+</div>
+
+<div class="card">
+<h3>Речь и память</h3>
+<select name="q9">
+<option value="2">Поддерживаю разговор</option>
+<option value="1">Частично</option>
+<option value="0">Нет</option>
+</select>
+<br><br>
+<select name="q10">
+<option value="2">Запомнил 3 слова через 5 минут</option>
+<option value="0">Не запомнил</option>
+</select>
+</div>
+
+<div class="card">
+<h3>Упражнения</h3>
+<select name="ex1"><option value="2">Подъём руки — полностью</option><option value="1">Частично</option><option value="0">Не смог</option></select><br><br>
+<select name="ex2"><option value="2">Сжимание мяча — полностью</option><option value="1">Частично</option><option value="0">Не смог</option></select><br><br>
+<select name="ex3"><option value="2">Ходьба — самостоятельно</option><option value="1">С поддержкой</option><option value="0">Не смог</option></select><br><br>
+<select name="ex4"><option value="2">Баланс — полностью</option><option value="1">Частично</option><option value="0">Не смог</option></select><br><br>
+<select name="ex5"><option value="2">Перекатывание стопы — полностью</option><option value="1">Частично</option><option value="0">Не смог</option></select><br><br>
+<select name="ex6"><option value="2">Сидение без опоры — полностью</option><option value="1">Частично</option><option value="0">Не смог</option></select>
+</div>
+
+<div class="card">
+<h3>Риск повторного инсульта</h3>
+<label><input type="checkbox" name="r17"> Давление выше 140/90</label>
+<label><input type="checkbox" name="r18"> Пропуск препаратов</label>
+<label><input type="checkbox" name="r19"> Новая слабость / нарушение речи</label>
+<label><input type="checkbox" name="r20"> Внезапная сильная головная боль</label>
+</div>
+
+<button type="button" onclick="calculate()">Рассчитать результат</button>
+
+</form>
+
+<div class="card">
+<div class="progress-container">
+<div class="progress-bar" id="progress"></div>
+</div>
+<div class="result" id="result"></div>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+function calculate(){
+let f=document.forms["form"];
+let total=0;
+
+["q4","q5","q6","q7","q8","q9","q10","ex1","ex2","ex3","ex4","ex5","ex6"].forEach(q=>{
+if(f[q].value) total+=parseInt(f[q].value);
+});
+
+let percent=Math.round((total/26)*100);
+
+let color="success";
+let text="🟢 Высокая продуктивность";
+
+if(percent<80){color="warning";text="🟡 Умеренная";}
+if(percent<60){color="warning";text="🟠 Низкая";}
+if(percent<40){color="danger";text="🔴 Неэффективная";}
+
+let risk=0;
+["r17","r18","r19","r20"].forEach(r=>{
+if(f[r].checked) risk++;
+});
+
+let alertMsg="";
+if(f["r19"].checked||f["r20"].checked){
+alertMsg="<br><span class='danger'>🚨 Срочная медицинская помощь!</span>";
+}
+
+document.getElementById("progress").style.width=percent+"%";
+document.getElementById("progress").style.background=
+percent>=80?"#16a34a":
+percent>=60?"#d97706":
+percent>=40?"#f97316":"#dc2626";
+
+document.getElementById("result").innerHTML=
+`Баллы: ${total}/26<br>
+Продуктивность: ${percent}%<br>
+<span class="${color}">${text}</span><br>
+Риск: ${risk}/4 ${alertMsg}`;
+
+tg.sendData(JSON.stringify({score:total,percent:percent,risk:risk}));
+}
+</script>
+
+</body>
+</html>
