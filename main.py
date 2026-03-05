@@ -54,12 +54,13 @@ async def telegram_webhook(request: Request):
 # ===== Startup / Shutdown =====
 @app.on_event("startup")
 async def on_startup():
-    await bot.set_webhook(WEBHOOK_URL)
+    await set_webhook(WEBHOOK_URL)
 
 @app.on_event("shutdown")
 async def on_shutdown():
-    await bot.delete_webhook()
+    await delete_webhook()
 
 # ===== Запуск локально =====
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+print(data)
